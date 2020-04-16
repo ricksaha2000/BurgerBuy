@@ -1,0 +1,31 @@
+In folder containers , stateful components.
+In folder components , dumb or stateless components.
+
+
+If in Layout.js we are passing props.children it means that other compinents can be wrapped in the Layout....
+if not , then no props.children
+Object.keys(props.ingredients)
+                .map(igKey=>{
+
+// This takes the Objects and handles the keys , and stores them in an array and the map function iterates over them.
+//So igKey is meat,cheese etc.....
+
+const x = [...Array(props.ingredients[igKey])]
+
+
+Here x creates an Array using the function Array()-->JS function
+
+so it actually takes in as an argument the length of the array , here for each igKey , we access the amt of item reqd , and create an array of that size.
+Creates an empy array of that size and then what we do is this -->
+eturn [...Array(props.ingredients[igKey])].map((_ , i)=>{
+
+    //    in map we traverse the previous created array and _ mean we are not interested about the value of that position , but the index , i.e. i of the 
+
+                                return <BurgerIngredient key={igKey+i} type={igKey} />
+
+
+# PLEASE READ ON REDUCE -- LOOPHOLE
+
+
+
+
