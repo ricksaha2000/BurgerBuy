@@ -4,6 +4,7 @@ import classes from './ContactData.css';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
+import {connect} from 'react-redux';
 
 class ContactData extends Component{
 
@@ -155,7 +156,7 @@ class ContactData extends Component{
         }
         // alert("CONTINUE TO CHECKOUT");
         const order = {
-            ingredients:this.props.ingredients,
+            ingredients:this.props.ings,
             price:this.props.price,
             orderData:formData,
 
@@ -224,10 +225,7 @@ render(){
                         touched = {formElement.config.touched}
                          />
                     ))}
-                    {/* <Input  inputtype="input"  type="email" name="email" placeholder="Your email" />
-                    <Input  inputtype="input" type="text" name="street" placeholder="Your Street" />
-                    <Input  inputtype="input" type="text" name="name" placeholder="Your Name" />
-                    <Input  inputtype="input" type="text" name="postalCode" placeholder="Your PC" /> */}
+                    
                     <Button 
                     disabled = {!this.state.formIsValid}
                     btnType="Success"
@@ -254,7 +252,15 @@ render(){
 
         
 
+    }
 }
- }
+const mapStateToProps = state =>{
 
- export default ContactData;
+    return{
+        ings : state.ingredients,
+        price: state.totalPrice
+    }
+};
+
+
+ export default connect(mapStateToProps)(ContactData);
