@@ -9,7 +9,7 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as burgerBuilderActions from '../../store/actions/index';
-
+import {Redirect} from 'react-router-dom';
 class BurgerBuilder extends Component{
 
 
@@ -63,8 +63,15 @@ class BurgerBuilder extends Component{
 
 
     purchaseHandler = () => {
+        if(this.props.isAuthenticated){
+            this.setState({purchasing:true});
 
-        this.setState({purchasing:true});
+        }
+        else{
+
+            this.props.history.push("/auth");
+
+        }
 
     }
 
@@ -113,7 +120,9 @@ class BurgerBuilder extends Component{
             disabled = {disableInfo}
             purchasable = {this.updatePurchaseState(this.props.ings)}
             ordered = {this.purchaseHandler}
-            price={this.props.price} />
+            price={this.props.price}
+            isAuth = {this.props.isAuthenticated}
+            />
         </Aux> );
 
 
@@ -155,6 +164,7 @@ const mapStateToProps = state =>{
         ings : state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         error:state.burgerBuilder.error,
+        isAuthenticated:state.auth.token !==null,
 
 
     };
